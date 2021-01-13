@@ -16,7 +16,7 @@ while True:
     cur_play = sp.current_user_playing_track()
     songname = cur_play["item"]["name"]
     artists = cur_play["item"]["artists"][0]["name"]
-    title = "🎧 Şuan bunu dinliyor : {}-{}".format(songname,artists)
+    title = "🎧 Şuan bunu dinliyor : {}-{}".format(songname, artists)
     if temp_song == songname:
         time.sleep(1)
     else:
