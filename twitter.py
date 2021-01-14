@@ -1,18 +1,16 @@
 import tweepy
 
+from config import get_config
 
 def change_desc(desc):
-
-    consumer_key = ""
-    consumer_secret = ""
-    access_token = ""
-    access_token_secret = ""
+    # Get keys, tokens and secrets from the envvars
+    conf = get_config()
 
     # authorization of consumer key and consumer secret
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth = tweepy.OAuthHandler(conf.consumer_key, conf.consumer_secret)
 
     # set access to user's access key and access secret
-    auth.set_access_token(access_token, access_token_secret)
+    auth.set_access_token(conf.access_token, conf.access_token_secret)
 
     # calling the api
     api = tweepy.API(auth)
