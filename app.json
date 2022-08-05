@@ -1,0 +1,31 @@
+{
+    "name": "TwitterNowPlaying-Spotify",
+    "description": "Twitter Now Playing on Spotify like MSN",
+    "repository": "https://github.com/tingirifistik/TwitterNowPlaying-Spotify",
+    "logo": "https://www.proandroid.com/wp-content/uploads/2016/05/Twitter-Spotify-tarjetas.png?width=1200&enable=upscale",
+    "env": {
+        "auth_token": {
+            "description": "Twitter auth_token",
+            "required": true
+        },
+        "ct0": {
+            "description": "Twitter ct0",
+            "required": true
+        },
+        "authorization": {
+            "description": "Spotify authorization",
+            "required": true
+        }
+    },
+    "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ]
+}
