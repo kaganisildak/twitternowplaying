@@ -12,8 +12,12 @@
             "description": "Twitter ct0",
             "required": true
         },
-        "authorization": {
-            "description": "Spotify authorization",
+        "clientid": {
+            "description": "Spotify Client Id",
+            "required": true
+        },
+        "clientsecret": {
+            "description": "Spotify Client Secret",
             "required": true
         }
     },
