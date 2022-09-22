@@ -1,19 +1,22 @@
 import requests
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
 from time import sleep
 from os import environ
 
 auth_token = "" #twitter
 ct0 = "" #twitter
-authorization = "" #spotify
+client_id = "" #spotify
+client_secret = "" #spotify
 
-if auth_token == "" or ct0 == "" or authorization == "":
+if auth_token == "" or ct0 == "" or client_id == "" or client_secret == "":
     try:
         auth_token = environ.get('auth_token')
         ct0 = environ.get('ct0')
-        authorization = environ.get('authorization')
-        ""+auth_token
+        client_id = environ.get('clientid')
+        client_secret = environ.get('clientsecret')
     except TypeError:
-        print("auth_token, ct0 ve authorization değerlerini yazınız!")
+        print("auth_token, ct0, client_id ve client_secret değerlerini yazınız!")
         sleep(5)
         exit()
     
@@ -24,18 +27,12 @@ def desc(text):
     data = {"description": text}
     requests.post(url, headers=headers, cookies=cookies, data=data)
     
-url = "https://api.spotify.com/v1/me/player/currently-playing"
-headers = {
-    "Authorization": "Bearer "+authorization,
-    "Content-Type": "application/json",
-    "Accept": "application/json"
-}
-
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri="https://www.google.com/callback", scope="user-read-currently-playing"))
 temp = ""
 while 1:
-    resp = requests.get(url, headers=headers)
     try:
-        songname, artists = resp.json()["item"]["name"], resp.json()["item"]["artists"][0]["name"]
+        resp = sp.current_user_playing_track()
+        songname, artists = resp["item"]["name"], resp["item"]["artists"][0]["name"]
         if temp == songname:
             continue
         temp = ""
@@ -43,7 +40,6 @@ while 1:
         playing = (f"🎧 Şu an bunu dinliyor: {songname} -- {artists}")
         desc(playing)
         print(playing)
-        sleep(15)
+        sleep(10)
     except:
-        sleep(60)
-        continue
+        sleep(30)
